@@ -75,7 +75,23 @@ $(function() {
   $('.todos h3').on('click', function(){
     $(this).next().slideToggle()
   })
+
+  // modal
+  $(document).on('click', '.mdl-btn-open', function(){
+    const postId = $(this).attr('mdl-id')
+    $.ajax({
+      url: `https://dummyjson.com/posts/${postId}`,
+      type: "GET",
+      success(modal){
+        buildModal(modal)
+      },
+      error(err){
+        console.log(err)
+      }
+    })
+  })
 })
+
 
 function buildInfoSec(arr){
   const boxImg = $('.info__image img')
@@ -113,7 +129,7 @@ function buildPostSec(arr){
     listPosts.html('<li>User has no posts</li>')
   } else {
     arr.forEach(el => {
-      itemHtml += `<li><div><strong class="mdl-link">${el.title}</strong></div><p>${el.body}</p></li>`
+      itemHtml += `<li><div><strong class="mdl-btn-open" mdl-id="${el.id}">${el.title}</strong></div><p>${el.body}</p></li>`
     })
     listPosts.html(itemHtml)
   }
@@ -130,4 +146,20 @@ function buildTodoSec(arr){
     })
     listTodos.html(itemHtml)
   }
+}
+
+function buildModal(arr){
+  $(document).on('click', '.mdl-btn-close', function(){
+    $('.overlay').remove()
+  })
+  $('.container').append(
+    `<div class="overlay">
+      <div class="modal">
+        <h4>${arr.title}</h4>
+        <p>${arr.body}</p>
+        <p class="mdl-view"><span>Views:</span>${arr.views}</p>
+        <button class="mdl-btn-close">Close Modal</button>
+      </div>
+    </div>`
+  )
 }

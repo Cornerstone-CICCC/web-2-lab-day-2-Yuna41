@@ -154,7 +154,16 @@ ul li:not(:last-child) {
 .info__content dt{
   font-weight: bold;
 }
-.mdl-link{
+.mdl-btn-open{
   text-decoration: underline;
   cursor: pointer;
+}
+.modal h4{
+  font-size: 1.4rem;
+}
+.mdl-view{
+  font-style: italic;
+}
+.mdl-view span{
+  margin-right: 4px;
 }
